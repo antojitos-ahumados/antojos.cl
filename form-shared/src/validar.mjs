@@ -2,7 +2,7 @@
 // `campos` = nombres de campos con problema (sin valores del cliente). `datos` = solo campos permitidos, ya normalizados.
 import { EVENTOS, PERSONAS, SABORES, PRODUCTOS_MAYOR, ENTREGA_D, COMUNAS_M, GIRO, LOCALES, REBANADAS } from "./listas.mjs";
 import { fechasDisponibles } from "./fechas.mjs";
-import { NOMBRE, TEXTO, EMAIL, telefonoValido, rutValido, sinEnlaces } from "./reglas.mjs";
+import { NOMBRE, TEXTO, EMAIL, telefonoValido, normalizarRut, sinEnlaces } from "./reglas.mjs";
 
 const str = (v) => (typeof v === "string" ? v.normalize("NFC").trim() : "");
 const arr = (v) => (Array.isArray(v) ? v : []);
@@ -48,7 +48,7 @@ export function validar(b, hoy) {
     obligatorio("nombre", 80);
     obligatorio("negocio", 100);
     d.rut = str(b.rut);
-    if (d.rut && (d.rut.length > 12 || !rutValido(d.rut))) mal("rut");
+    if (d.rut) { var rutFmt = d.rut.length > 30 ? null : normalizarRut(d.rut); if (rutFmt === null) mal("rut"); else d.rut = rutFmt; }
     obligatorio("direccion", 120);
     d.comuna = str(b.comuna);
     if (!COMUNAS_M.includes(d.comuna)) mal("comuna");

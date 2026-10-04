@@ -222,7 +222,7 @@
 
       <fieldset data-campo="rut">
         <label class="t" for="rut">RUT de empresa <span class="op">(opcional)</span></label>
-        <input type="text" id="rut" name="rut" maxlength="12" placeholder="12.345.678-5" inputmode="text">
+        <input type="text" id="rut" name="rut" maxlength="20" placeholder="12.345.678-5" inputmode="text" autocomplete="off">
         <p class="error"></p>
       </fieldset>
 
@@ -354,15 +354,20 @@ function telefonoValido(v) {
   if (/^[3-7][0-9]{8}$/.test(s)) return true;      // fijo regiones
   return false;
 }
-function rutValido(v) {
-  var s = v.replace(/[.\s]/g, "").toUpperCase();
-  var m = /^([0-9]{7,8})-([0-9K])$/.exec(s);
-  if (!m) return false;
+// RUT chileno: acepta cualquier forma de escribirlo (con o sin puntos, guion o espacios).
+// Devuelve el RUT con formato 12.345.678-5 (K en mayúscula) o null si no es válido
+// (7 u 8 dígitos + dígito verificador módulo 11 correcto).
+function normalizarRut(v) {
+  var s = String(v == null ? "" : v).replace(/[\s.\-\u2010-\u2015]/g, "").toUpperCase();
+  var m = /^([0-9]{7,8})([0-9K])$/.exec(s);
+  if (!m) return null;
   var suma = 0, mul = 2;
   for (var i = m[1].length - 1; i >= 0; i--) { suma += parseInt(m[1][i], 10) * mul; mul = mul === 7 ? 2 : mul + 1; }
   var r = 11 - (suma % 11), dv = r === 11 ? "0" : r === 10 ? "K" : String(r);
-  return dv === m[2];
+  if (dv !== m[2]) return null;
+  return m[1].replace(/\B(?=(\d{3})+$)/g, ".") + "-" + m[2];
 }
+function rutValido(v) { return normalizarRut(v) !== null; }
 function sinEnlaces(v) {
   return !/(https?:|www\.|\.com|\.cl\b|\.net|\.org|\.io\b|\.me\b|\.ly\b|\.ru\b|\.xyz|\.info|t\.me|<|>|\{|\}|\[|\]|\\|`|\|)/i.test(v);
 }
@@ -483,6 +488,8 @@ var TS_SITEKEY = "0x4AAAAAAFNlxSNW5_kZZP3n";
     errores++;
   }
   var errores = 0;
+  // RUT: al salir del campo se ordena solo (12.345.678-5); si no es válido se deja como está y se avisa al enviar
+  $("#rut").addEventListener("blur", function () { var f = normalizarRut(this.value); if (f) this.value = f; });
   function val(name) { var e = $('[name="' + name + '"]:not(:disabled)'); return e ? e.value.trim() : ""; }
   function marcado(name) { return $$('[name="' + name + '"]:not(:disabled)').filter(function (e) { return e.checked; }).length; }
 
@@ -604,7 +611,7 @@ var TS_SITEKEY = "0x4AAAAAAFNlxSNW5_kZZP3n";
       if (o.personas === "Más") o.personas_mas = val("personas_mas");
       o.sabores = multiples("sabores"); o.entrega = val("entrega"); o.quiere_guia = $("#quiere_guia").checked;
     } else {
-      o.negocio = val("negocio"); o.rut = val("rut"); o.direccion = val("direccion"); o.comuna = val("comuna");
+      o.negocio = val("negocio"); o.rut = normalizarRut(val("rut")) || val("rut"); o.direccion = val("direccion"); o.comuna = val("comuna");
       o.locales = radio("locales"); o.giro = multiples("giro"); o.rebanadas = val("rebanadas");
       o.productos = multiples("productos"); o.quiere_folletos = $("#quiere_folletos").checked;
     }
