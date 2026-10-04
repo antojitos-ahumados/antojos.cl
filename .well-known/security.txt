@@ -1,0 +1,4 @@
+Contact: mailto:info@antojos.cl
+Expires: 2027-10-04T00:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://antojos.cl/.well-known/security.txt
