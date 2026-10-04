@@ -70,7 +70,7 @@ for (const s of SITIOS) {
   if (h.includes(MARCA)) h = h.slice(0, h.indexOf(MARCA));
   h = h.trimEnd() + `\n\n${MARCA}\n` +
     ["/c", "/c/*", "/d", "/m", "/form", "/form.html"].map((p) => `${p}\n  X-Robots-Tag: noindex, nofollow\n  Content-Security-Policy: ${CSP}\n  Cache-Control: no-cache\n`).join("\n") +
-    `\n/privacidad\n  Content-Security-Policy: ${CSP}\n\n/img/*\n  Cache-Control: public, max-age=86400\n\n/api/*\n  X-Robots-Tag: noindex, nofollow\n  Cache-Control: no-store\n`;
+    `\n/llms.txt\n  Content-Type: text/plain; charset=utf-8\n  Cache-Control: public, max-age=3600\n\n/privacidad\n  Content-Security-Policy: ${CSP}\n\n/img/*\n  Cache-Control: public, max-age=86400\n\n/api/*\n  X-Robots-Tag: noindex, nofollow\n  Cache-Control: no-store\n`;
   escribir(join(raiz, "_headers"), h);
 
   // --- sitemap (sin el formulario) y robots ---
@@ -78,6 +78,7 @@ for (const s of SITIOS) {
   if (!sm.includes("/privacidad")) escribir(join(raiz, "sitemap.xml"), sm.replace("</urlset>", `  <url><loc>https://${s.host}/privacidad</loc></url>\n</urlset>`));
   const rb = leer(join(raiz, "robots.txt"));
   if (!rb.includes("Disallow: /api/")) escribir(join(raiz, "robots.txt"), rb.replace("Allow: /\n", "Allow: /\nDisallow: /api/\n"));
+  if (!/^Sitemap:/mi.test(leer(join(raiz, "robots.txt")))) escribir(join(raiz, "robots.txt"), leer(join(raiz, "robots.txt")).trimEnd() + `\n\nSitemap: https://${s.host}/sitemap.xml\n`);
 
 
   // --- Portada: botón "Contáctanos" -> /c (idempotente) ---
@@ -90,7 +91,11 @@ for (const s of SITIOS) {
     escribir(join(raiz, "index.html"), idx);
   }
 
-  copyFileSync(join(AQUI, "assets/og-contacto.jpg"), join(raiz, "og-contacto.jpg"));
+  // Imagen de vista previa (v2 = textos pizarra en español). Se borra la v1 (inglés) para no dejarla publicada.
+  rmSync(join(raiz, "og-contacto.jpg"), { force: true });
+  copyFileSync(join(AQUI, "assets/og-contacto-2.jpg"), join(raiz, "og-contacto-2.jpg"));
+  // --- llms.txt (texto en assets/llms-<sitio>.txt; solo información pública) ---
+  copyFileSync(join(AQUI, "assets/llms-" + s.host + ".txt"), join(raiz, "llms.txt"));
   // --- Imágenes (sin las notas internas de créditos) ---
   mkdirSync(join(raiz, "img"), { recursive: true });
   for (const f of readdirSync(join(DEMO, "img"))) if (!f.endsWith(".md")) copyFileSync(join(DEMO, "img", f), join(raiz, "img", f));

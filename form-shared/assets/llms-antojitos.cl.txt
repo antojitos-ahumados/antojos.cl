@@ -1,0 +1,25 @@
+# Antojitos Ahumados
+
+> Pastelería de tortas y queques en Santiago Centro, Chile. Este sitio (antojitos.cl) es para personas y eventos: cotiza una torta para tu cumpleaños u otro evento. (English: Antojitos Ahumados is a cake (torta) and bundt cake (queque) bakery in downtown Santiago, Chile; this site is for retail customers and events, and antojos.cl is for wholesale.)
+
+El sitio está en construcción: por ahora la portada anuncia el nuevo sitio y el formulario de contacto es la forma principal de pedir una cotización.
+
+## Pedir una cotización
+
+- [Formulario de contacto](https://antojitos.cl/c): el tipo por defecto es "Por detalle" (compra para consumidor o evento). Se pide la fecha del evento con mínimo 2 días hábiles de anticipación; no se entrega los domingos.
+- [Contacto por mayor](https://antojitos.cl/c/m): si buscas comprar para un negocio, usa el formulario "Por mayor".
+
+## Dónde estamos y cómo contactarnos
+
+- Dirección: Nataniel Cox 1386, Local E, Santiago Centro, Chile.
+- [WhatsApp](https://wa.me/56956143043): +56 9 5614-3043
+- [Instagram](https://www.instagram.com/antojitosahumados): @antojitosahumados
+
+## Sitio hermano
+
+- [antojos.cl](https://antojos.cl/): venta por mayor para almacenes, minimarkets, restaurantes y cafeterías.
+
+## Información del sitio
+
+- [Política de privacidad](https://antojitos.cl/privacidad): qué datos guarda el formulario de contacto, para qué se usan y por cuánto tiempo.
+- [Mapa del sitio](https://antojitos.cl/sitemap.xml)
