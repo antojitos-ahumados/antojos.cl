@@ -12,8 +12,8 @@ const DEMO = join(WEB, "form-demo");
 const produccion = process.argv.includes("--produccion");
 const SITEKEY = readFileSync(join(AQUI, "TURNSTILE_SITEKEY.txt"), "utf8").trim();
 const SITIOS = [
-  { dir: "antojitos.cl", host: "antojitos.cl", ga: "G-917JYYTG98", defecto: "d" },
-  { dir: "antojos.cl",   host: "antojos.cl",   ga: "G-MPC6LPT8QR", defecto: "m" },
+  { dir: "antojitos.cl", host: "antojitos.cl", ga: "G-917JYYTG98", defecto: "d", ogTitulo: "Cotiza tu torta | Antojitos Ahumados", ogDesc: "Cuéntanos de tu evento y te enviamos una cotización de tortas." },
+  { dir: "antojos.cl",   host: "antojos.cl",   ga: "G-MPC6LPT8QR", defecto: "m", ogTitulo: "Pastelería por mayor | Antojitos Ahumados", ogDesc: "Tortas y queques por mayor para cafeterías, restaurantes y almacenes. Pide tu cotización." },
 ];
 
 // Control de fotos: Selva Negra no puede ser la de Wikimedia en producción
@@ -57,7 +57,7 @@ for (const s of SITIOS) {
 
   // --- Páginas ---
   const form = leer(join(SRC, "form.template.html"))
-    .replace(/@@GA@@/g, s.ga).replace("@@DEFECTO@@", s.defecto).replace("@@SITEKEY@@", SITEKEY)
+    .replace(/@@GA@@/g, s.ga).replace(/@@HOST@@/g, s.host).replace(/@@OG_TITLE@@/g, s.ogTitulo).replace(/@@OG_DESC@@/g, s.ogDesc).replace("@@DEFECTO@@", s.defecto).replace("@@SITEKEY@@", SITEKEY)
     .replace("/*@@SHARED@@*/", () => compartidoCliente)
     .replace("/*@@ENVIO@@*/", () => leer(join(SRC, "envio.js")));
   if (/@@/.test(form)) throw new Error("quedaron marcadores @@ sin reemplazar");
@@ -90,6 +90,7 @@ for (const s of SITIOS) {
     escribir(join(raiz, "index.html"), idx);
   }
 
+  copyFileSync(join(AQUI, "assets/og-contacto.jpg"), join(raiz, "og-contacto.jpg"));
   // --- Imágenes (sin las notas internas de créditos) ---
   mkdirSync(join(raiz, "img"), { recursive: true });
   for (const f of readdirSync(join(DEMO, "img"))) if (!f.endsWith(".md")) copyFileSync(join(DEMO, "img", f), join(raiz, "img", f));
