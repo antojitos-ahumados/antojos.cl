@@ -1,0 +1,15 @@
+import { validar } from "../src/validar.mjs";
+import { rutValido, telefonoValido } from "../src/reglas.mjs";
+let f = 0; const t = (n, c) => { if (!c) f++; console.log((c ? "PASA  " : "FALLA ") + n); };
+t("RUT 11.111.111-1 válido", rutValido("11.111.111-1")); t("RUT 12.345.678-5 válido", rutValido("12.345.678-5")); t("RUT 12.345.678-9 inválido", !rutValido("12.345.678-9"));
+t("RUT con K (7.000.000-K? no) 6.999.999-K cálculo", typeof rutValido("6.999.999-K") === "boolean");
+for (const [n, v, e] of [["+56 9 1234 5678", 1], ["912345678", 1], ["+56 2 2345 6789", 1], ["12345", 0], ["+1 555 1234", 0], ["800123456", 0]]) t("tel " + n, telefonoValido(n) === !!v);
+const hoy = { y: 2026, m: 10, d: 4 };
+const base = { tipo: "d", evento: "Otro", fecha: "Por confirmar", personas: "Por confirmar", sabores: [], nombre: "Ana", telefono: "912345678", entrega: "Retiro en local", acepto: true };
+t("detalle mínimo válido", validar(base, hoy).ok);
+t("domingo 2026-10-11 rechazado", !validar({ ...base, fecha: "2026-10-11" }, hoy).ok);
+t("1ª fecha disponible (mié 7 oct) aceptada", validar({ ...base, fecha: "2026-10-07" }, hoy).ok);
+t("antes de la 1ª fecha (mar 6 oct) rechazada", !validar({ ...base, fecha: "2026-10-06" }, hoy).ok);
+t("sábado dentro de la lista aceptado", validar({ ...base, fecha: "2026-10-10" }, hoy).ok);
+t("campos extra ignorados (no pasan a datos)", !("hack" in validar({ ...base, hack: "x" }, hoy).datos));
+process.exit(f ? 1 : 0);

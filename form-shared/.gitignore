@@ -1,0 +1,4 @@
+.test-key
+*.secret
+node_modules/
+.wrangler/

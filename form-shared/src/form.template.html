@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Formulario de contacto de Antojitos Ahumados">
+<title>Contacto | Antojitos Ahumados</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=@@GA@@"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '@@GA@@');
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<style>
+  :root { --cafe:#311B0B; --crema:#f6ece0; --acento:#e8a15a; --tinta:#2a1608; --linea:#d9c6b0; --error:#b3261e; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--cafe); color:var(--crema); font-family:"Helvetica Neue",Arial,sans-serif; line-height:1.5; }
+  header { max-width:680px; margin:0 auto; padding:22px 16px 6px; }
+  .redes { display:flex; justify-content:flex-end; gap:8px; margin:0 0 8px; }
+  .redes a { width:32px; height:32px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(246,236,224,.45); border-radius:50%; color:var(--crema); }
+  .redes a:hover, .redes a:focus-visible { background:var(--crema); color:var(--cafe); outline:none; }
+  .cab { display:flex; align-items:center; gap:14px; }
+  .logo { width:76px; height:76px; flex:none; display:block; }
+  .cab-t { min-width:0; }
+  .marca { letter-spacing:.18em; text-transform:uppercase; font-size:.8rem; color:var(--acento); font-weight:700; margin:0 0 2px; }
+  h1 { font-size:1.7rem; line-height:1.2; margin:0 0 4px; }
+  header p.sub { margin:0; opacity:.85; }
+  main { max-width:680px; margin:0 auto; padding:16px 16px 40px; }
+  .tabs { display:flex; background:rgba(255,255,255,.08); border-radius:999px; padding:4px; margin:12px 0 18px; }
+  .tabs button { flex:1; border:0; background:transparent; color:var(--crema); font:inherit; font-weight:700; padding:12px 8px; border-radius:999px; cursor:pointer; }
+  .tabs button[aria-selected="true"] { background:var(--crema); color:var(--cafe); }
+  form { background:var(--crema); color:var(--tinta); border-radius:16px; padding:22px 20px 26px; box-shadow:0 10px 30px rgba(0,0,0,.5); }
+  .intro { margin:0 0 16px; font-size:.95rem; }
+  fieldset { border:0; padding:0; margin:0 0 18px; min-width:0; }
+  legend, label.t { display:block; font-weight:700; margin:0 0 6px; padding:0; }
+  .op { font-weight:400; font-size:.85rem; opacity:.7; }
+  input[type=text], input[type=tel], input[type=email], input[type=number], select, textarea {
+    width:100%; font:inherit; color:var(--tinta); background:#fff; border:1px solid var(--linea); border-radius:10px; padding:11px 12px; }
+  input:focus, select:focus, textarea:focus { outline:2px solid var(--acento); border-color:var(--acento); }
+  textarea { min-height:90px; resize:vertical; }
+  .opciones { display:flex; flex-wrap:wrap; gap:8px 10px; }
+  .opciones label { display:flex; align-items:center; gap:8px; background:#fff; border:1px solid var(--linea); border-radius:999px; padding:8px 14px; cursor:pointer; font-weight:400; }
+  input[type=checkbox], input[type=radio] { accent-color:var(--cafe); width:18px; height:18px; flex:none; }
+  .linea { display:flex; align-items:flex-start; gap:10px; margin:6px 0 0; font-weight:400; font-size:.92rem; }
+  .ayuda { font-size:.85rem; opacity:.75; margin:5px 0 0; }
+  .error { color:var(--error); font-size:.85rem; margin:5px 0 0; min-height:0; }
+  .campo-malo input, .campo-malo select, .campo-malo textarea { border-color:var(--error); }
+  .oculto { display:none !important; }
+  .trampa { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .miniaturas { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+  .miniaturas:empty { display:none; }
+  .mini { width:62px; text-align:center; font-size:.68rem; line-height:1.15; }
+  .mini img { width:56px; height:56px; object-fit:cover; border-radius:10px; border:1px solid var(--linea); display:block; margin:0 auto 3px; background:#fff; }
+  .resumen { margin-top:8px; }
+  .turnstile-box { display:flex; justify-content:center; margin:0 0 6px; }
+  .exito { text-align:center; padding:18px 6px 8px; }
+  .exito h2 { margin:0 0 8px; font-size:1.5rem; }
+  .exito p { margin:0 0 14px; }
+  .exito a.volver { display:inline-block; background:var(--cafe); color:var(--crema); text-decoration:none; font-weight:700; padding:12px 24px; border-radius:999px; }
+  .linea a, footer a { color:inherit; }
+  button.enviar[disabled] { opacity:.6; cursor:wait; }
+  button.enviar { width:100%; border:0; background:var(--cafe); color:var(--crema); font:inherit; font-weight:700; font-size:1.05rem; padding:14px; border-radius:999px; cursor:pointer; }
+  button.enviar:hover { background:#4a2a12; }
+  .aviso { font-size:.8rem; opacity:.75; margin:14px 0 0; }
+  #resultado { margin:14px 0 0; padding:12px 14px; border-radius:10px; background:#fff3d6; border:1px solid var(--acento); font-size:.92rem; }
+  footer { text-align:center; font-size:.8rem; opacity:.65; padding:0 20px 24px; }
+  @media (max-width:480px) {
+    header { padding-top:12px; }
+    .logo { width:60px; height:60px; }
+    .cab { gap:12px; }
+    h1 { font-size:1.3rem; }
+    .marca { font-size:.7rem; }
+    header p.sub { font-size:.9rem; }
+    form { padding:18px 14px 22px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="redes" aria-label="Redes sociales">
+    <a href="https://www.instagram.com/antojitosahumados" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://wa.me/56956143043" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+  </nav>
+  <div class="cab">
+    <img class="logo" src="/img/logo-redondo-blanco.webp" width="76" height="76" alt="Logo Antojitos Ahumados">
+    <div class="cab-t">
+      <p class="marca">Antojitos Ahumados</p>
+      <h1 id="titulo">Contáctanos</h1>
+      <p class="sub" id="subtitulo"></p>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="tabs" role="tablist" aria-label="Tipo de cliente">
+    <button type="button" role="tab" id="tab-d" data-t="d" aria-selected="false">Por detalle</button>
+    <button type="button" role="tab" id="tab-m" data-t="m" aria-selected="false">Por mayor</button>
+  </div>
+
+  <form id="f" novalidate autocomplete="on">
+    <input type="hidden" name="tipo" id="tipo" value="d">
+    <div class="trampa" aria-hidden="true"><label>No llenar este campo <input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
+
+    <!-- ===================== POR DETALLE ===================== -->
+    <section id="sec-d">
+      <p class="intro">Cuéntanos de tu evento y te enviaremos una cotización.</p>
+
+      <fieldset data-campo="evento">
+        <legend>¿Qué tipo de evento es?</legend>
+        <div class="opciones">
+          <label><input type="radio" name="evento" value="Cumpleaños"> Cumpleaños</label>
+          <label><input type="radio" name="evento" value="Bautizo o comunión"> Bautizo o comunión</label>
+          <label><input type="radio" name="evento" value="Baby shower"> Baby shower</label>
+          <label><input type="radio" name="evento" value="Aniversario"> Aniversario</label>
+          <label><input type="radio" name="evento" value="Evento de empresa"> Evento de empresa</label>
+          <label><input type="radio" name="evento" value="Otro" checked> Otro</label>
+        </div>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="fecha">
+        <label class="t" for="fecha">Fecha del evento (mínimo 2 días hábiles de anticipación)</label>
+        <select id="fecha" name="fecha"></select>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="personas">
+        <legend>¿Cuántas personas?</legend>
+        <div class="opciones">
+          <label><input type="radio" name="personas" value="Por confirmar" checked> Por confirmar</label>
+          <label><input type="radio" name="personas" value="5 a 8"> 5 a 8</label>
+          <label><input type="radio" name="personas" value="10 a 15"> 10 a 15</label>
+          <label><input type="radio" name="personas" value="20 a 25"> 20 a 25</label>
+          <label><input type="radio" name="personas" value="30 a 35"> 30 a 35</label>
+          <label><input type="radio" name="personas" value="Más"> Más</label>
+        </div>
+        <input type="number" name="personas_mas" id="personas_mas" class="oculto" min="36" max="2000" placeholder="¿Cuántas personas aproximadamente?" style="margin-top:8px">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="sabores">
+        <legend>¿Qué sabores de torta te interesan? <span class="op">(opcional, puedes marcar varios)</span></legend>
+        <div class="opciones" id="lista-sabores"></div>
+        <div class="miniaturas" id="mini-sabores" aria-live="polite"></div>
+        <p class="ayuda resumen" id="res-sabores"></p>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="nombre_d">
+        <label class="t" for="nombre_d">Nombre</label>
+        <input type="text" id="nombre_d" name="nombre" maxlength="80" autocomplete="name">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="telefono_d">
+        <label class="t" for="telefono_d">Teléfono</label>
+        <input type="tel" id="telefono_d" name="telefono" maxlength="20" placeholder="+56 9 1234 5678" autocomplete="tel">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="email_d">
+        <label class="t" for="email_d">Correo electrónico <span class="op" id="op-email_d">(opcional)</span></label>
+        <input type="email" id="email_d" name="email" maxlength="100" autocomplete="email">
+        <label class="linea"><input type="checkbox" name="quiere_guia" id="quiere_guia"> Recibe gratis nuestra guía con ideas y consejos para tu evento.</label>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="entrega_d">
+        <label class="t" for="entrega_d">Delivery</label>
+        <select id="entrega_d" name="entrega"></select>
+        <p class="ayuda oculto" id="ayuda-entrega">Por ahora no tenemos despacho a esa comuna. Te contactaremos para ver alternativas.</p>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="comentarios_d">
+        <label class="t" for="comentarios_d">Comentarios o instrucciones personalizadas <span class="op">(opcional)</span></label>
+        <textarea id="comentarios_d" name="comentarios" maxlength="500"></textarea>
+        <p class="error"></p>
+      </fieldset>
+    </section>
+
+    <!-- ===================== POR MAYOR ===================== -->
+    <section id="sec-m" class="oculto">
+      <p class="intro">Para cafeterías, restaurantes, almacenes y pastelerías. Ofrecemos también marca blanca (tus tortas con tu marca).</p>
+
+      <fieldset data-campo="nombre_m">
+        <label class="t" for="nombre_m">Nombre completo</label>
+        <input type="text" id="nombre_m" name="nombre" maxlength="80" autocomplete="name">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="negocio">
+        <label class="t" for="negocio">Nombre de la empresa</label>
+        <input type="text" id="negocio" name="negocio" maxlength="100" autocomplete="organization">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="rut">
+        <label class="t" for="rut">RUT de empresa <span class="op">(opcional)</span></label>
+        <input type="text" id="rut" name="rut" maxlength="12" placeholder="12.345.678-5" inputmode="text">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="telefono_m">
+        <label class="t" for="telefono_m">Teléfono de contacto</label>
+        <input type="tel" id="telefono_m" name="telefono" maxlength="20" placeholder="+56 9 1234 5678" autocomplete="tel">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="direccion">
+        <label class="t" for="direccion">Dirección del establecimiento</label>
+        <input type="text" id="direccion" name="direccion" maxlength="120" autocomplete="street-address">
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="comuna_m">
+        <label class="t" for="comuna_m">Comuna</label>
+        <select id="comuna_m" name="comuna"></select>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="email_m">
+        <label class="t" for="email_m">Correo electrónico <span class="op" id="op-email_m">(opcional)</span></label>
+        <input type="email" id="email_m" name="email" maxlength="100" autocomplete="email">
+        <label class="linea"><input type="checkbox" name="quiere_folletos" id="quiere_folletos"> ¿Quieres recibir nuestros folletos y consejos de venta?</label>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="locales">
+        <legend>¿Cuántos locales tienes? <span class="op">(opcional)</span></legend>
+        <div class="opciones">
+          <label><input type="radio" name="locales" value="Menos de 5"> Menos de 5</label>
+          <label><input type="radio" name="locales" value="5 o más"> 5 o más</label>
+        </div>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="giro">
+        <legend>Tipo de negocio <span class="op">(opcional, marca todos los que apliquen)</span></legend>
+        <div class="opciones">
+          <label><input type="checkbox" name="giro" value="Café"> Café</label>
+          <label><input type="checkbox" name="giro" value="Almacén"> Almacén</label>
+          <label><input type="checkbox" name="giro" value="Pastelería"> Pastelería</label>
+          <label><input type="checkbox" name="giro" value="Restaurante"> Restaurante</label>
+          <label><input type="checkbox" name="giro" value="Otro"> Otro</label>
+        </div>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="rebanadas">
+        <label class="t" for="rebanadas">¿Cuántas porciones de torta vendes diariamente? <span class="op">(opcional)</span></label>
+        <select id="rebanadas" name="rebanadas">
+          <option value="No vendo actualmente" selected>No vendo actualmente</option>
+          <option value="Menos de 5">Menos de 5</option>
+          <option value="5 o más">5 o más</option>
+        </select>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="productos_m">
+        <legend>¿Qué productos te interesan? <span class="op">(opcional, marca todos los que quieras)</span></legend>
+        <div class="opciones" id="lista-productos"></div>
+        <div class="miniaturas" id="mini-productos" aria-live="polite"></div>
+        <p class="ayuda resumen" id="res-productos"></p>
+        <p class="error"></p>
+      </fieldset>
+
+      <fieldset data-campo="comentarios_m">
+        <label class="t" for="comentarios_m">Comentarios o instrucciones personalizadas <span class="op">(opcional)</span></label>
+        <textarea id="comentarios_m" name="comentarios" maxlength="500"></textarea>
+        <p class="error"></p>
+      </fieldset>
+    </section>
+
+    <fieldset data-campo="acepto">
+      <label class="linea"><input type="checkbox" name="acepto" id="acepto"> Acepto que Antojitos Ahumados use estos datos solo para responder mi solicitud. <a href="/privacidad" target="_blank" rel="noopener">Política de privacidad</a></label>
+      <p class="error"></p>
+    </fieldset>
+
+    <div id="turnstile" class="turnstile-box"></div>
+    <button class="enviar" type="submit" id="btn">Enviar solicitud</button>
+    <p class="aviso">Te responderemos lo antes posible.</p>
+    <div id="resultado" class="oculto" role="status"></div>
+  </form>
+</main>
+<footer>&copy; Antojitos Ahumados &middot; <a href="/privacidad">Privacidad</a></footer>
+
+<script>
+/*@@SHARED@@*/
+var SITIO_DEFECTO = "@@DEFECTO@@";
+var TS_SITEKEY = "@@SITEKEY@@";
+(function () {
+  // ---- Datos (listas compartidas con el servidor) ----
+  var SABORES = LISTAS.SABORES, PRODUCTOS_MAYOR = LISTAS.PRODUCTOS_MAYOR, CON_REPARTO = LISTAS.CON_REPARTO, OTRAS = LISTAS.OTRAS;
+  var FOTO = {"Tres Leches":"tres-leches","Torta Chocolate":"torta-chocolate","Torta Zanahoria":"torta-zanahoria","Red Velvet":"red-velvet","Capricho de Almendras":"capricho-de-almendras","Torta de Oreo":"torta-de-oreo","Tiramisu":"tiramisu","Cheesecake Maracuyá":"cheesecake-maracuya","Selva Negra":"selva-negra","Torta Rubia":"torta-rubia","Queques":"queques"};
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  // ---- Armar listas de sabores/productos con miniaturas ----
+  function checks(cont, lista, name, miniCont, resumenEl) {
+    function actualizar() {
+      var marcados = $$('input[name="' + name + '"]', cont).filter(function (e) { return e.checked; }).map(function (e) { return e.value; });
+      var texto = marcados.length ? marcados.join(", ") : "ninguno seleccionado";
+      resumenEl.textContent = (name === "sabores" ? "Sabores" : "Productos") + " seleccionados: " + texto;
+    }
+    lista.forEach(function (v) {
+      var l = document.createElement("label");
+      var i = document.createElement("input"); i.type = "checkbox"; i.name = name; i.value = v;
+      i.addEventListener("change", function () {
+        var id = "mini-" + name + "-" + FOTO[v];
+        var ya = document.getElementById(id);
+        if (i.checked && !ya) {
+          var d = document.createElement("div"); d.className = "mini"; d.id = id;
+          var im = document.createElement("img"); im.src = "/img/" + FOTO[v] + ".jpg"; im.alt = v; im.width = 56; im.height = 56; im.loading = "lazy";
+          var c = document.createElement("span"); c.textContent = v;
+          d.appendChild(im); d.appendChild(c); miniCont.appendChild(d);
+        } else if (!i.checked && ya) { ya.parentNode.removeChild(ya); }
+        actualizar();
+      });
+      l.appendChild(i); l.appendChild(document.createTextNode(" " + v)); cont.appendChild(l);
+    });
+    actualizar();
+  }
+  checks($("#lista-sabores"), SABORES, "sabores", $("#mini-sabores"), $("#res-sabores"));
+  checks($("#lista-productos"), PRODUCTOS_MAYOR, "productos", $("#mini-productos"), $("#res-productos"));
+
+  function opcion(sel, valor, texto) { var o = document.createElement("option"); o.value = valor; o.textContent = texto; sel.appendChild(o); return o; }
+
+  // Delivery (por detalle)
+  var se = $("#entrega_d");
+  opcion(se, "Retiro en local", "Retiro en local (sin costo adicional)");
+  opcion(se, "Santiago Centro", "Santiago Centro (gratis en compras sobre $30.000)");
+  CON_REPARTO.forEach(function (c) { opcion(se, c, c + " (Delivery con tarifa)"); });
+  OTRAS.forEach(function (c) { opcion(se, c, c + " (Despacho no disponible)"); });
+  opcion(se, "Fuera de Santiago", "Fuera de Santiago");
+  se.addEventListener("change", function () {
+    $("#ayuda-entrega").classList.toggle("oculto", OTRAS.indexOf(se.value) === -1);
+  });
+
+  // Comuna (por mayor)
+  var sm = $("#comuna_m");
+  opcion(sm, "", "Elige tu comuna");
+  opcion(sm, "Santiago Centro", "Santiago Centro (Despacho disponible)");
+  CON_REPARTO.forEach(function (c) { opcion(sm, c, c + " (Despacho limitado)"); });
+  OTRAS.forEach(function (c) { opcion(sm, c, c + " (Retiro en la fábrica)"); });
+  opcion(sm, "Fuera de la Región Metropolitana", "Fuera de la Región Metropolitana (Retiro en la fábrica)");
+
+  // ---- Fecha del evento: lista generada en hora de Santiago ----
+  var selFecha = $("#fecha");
+  function armarFechas() {
+    var h = hoySantiago();
+    selFecha.innerHTML = "";
+    opcion(selFecha, "Por confirmar", "Por confirmar");
+    fechasDisponibles(h.y, h.m, h.d).forEach(function (f) { opcion(selFecha, f.valor, f.etiqueta); });
+    opcion(selFecha, "Fecha no definida", "Fecha no definida");
+    selFecha.value = "Por confirmar";
+  }
+  armarFechas();
+
+  // ---- Tipo de cliente: sitio por defecto y ruta corta (/d o /m) ----
+  var host = location.hostname, ruta = location.pathname.replace(/\/+$/, "");
+  var porDefecto = SITIO_DEFECTO;
+  var tipoRuta = (ruta === "/d" || ruta === "/c/d") ? "d" : (ruta === "/m" || ruta === "/c/m") ? "m" : null;
+  var tipo = tipoRuta || porDefecto;
+
+  function mostrar(t) {
+    tipo = t; $("#tipo").value = t;
+    $("#sec-d").classList.toggle("oculto", t !== "d");
+    $("#sec-m").classList.toggle("oculto", t !== "m");
+    // evitar enviar campos de la sección oculta
+    $$("#sec-d input, #sec-d select, #sec-d textarea").forEach(function (e) { e.disabled = (t !== "d"); });
+    $$("#sec-m input, #sec-m select, #sec-m textarea").forEach(function (e) { e.disabled = (t !== "m"); });
+    $$(".tabs button").forEach(function (b) { b.setAttribute("aria-selected", b.dataset.t === t ? "true" : "false"); });
+    $("#titulo").textContent = t === "d" ? "Cotiza una torta para tu evento" : "Vende nuestras tortas en tu negocio";
+    $("#subtitulo").textContent = t === "d" ? "Tortas para cumpleaños y celebraciones." : "Pastelería por mayor en Santiago Centro";
+    $("#resultado").classList.add("oculto");
+    $$(".campo-malo").forEach(function (f) { f.classList.remove("campo-malo"); });
+    $$(".error").forEach(function (e) { e.textContent = ""; });
+  }
+  $$(".tabs button").forEach(function (b) { b.addEventListener("click", function () { mostrar(b.dataset.t); }); });
+
+  $$("input[name=personas]").forEach(function (r) {
+    r.addEventListener("change", function () {
+      var mas = $$("input[name=personas]").some(function (x) { return x.checked && x.value === "Más"; });
+      $("#personas_mas").classList.toggle("oculto", !mas);
+    });
+  });
+
+  // Si piden información/folletos, el correo pasa a ser obligatorio
+  function sincronizarCorreo(chk, op) {
+    $(op).textContent = $(chk).checked ? "(obligatorio)" : "(opcional)";
+  }
+  $("#quiere_guia").addEventListener("change", function () { sincronizarCorreo("#quiere_guia", "#op-email_d"); });
+  $("#quiere_folletos").addEventListener("change", function () { sincronizarCorreo("#quiere_folletos", "#op-email_m"); });
+
+  // ---- Validaciones ----
+  function falla(nombreCampo, msg) {
+    var f = $('[data-campo="' + nombreCampo + '"]');
+    if (!f) return;
+    f.classList.add("campo-malo");
+    $(".error", f).textContent = msg;
+    errores++;
+  }
+  var errores = 0;
+  function val(name) { var e = $('[name="' + name + '"]:not(:disabled)'); return e ? e.value.trim() : ""; }
+  function marcado(name) { return $$('[name="' + name + '"]:not(:disabled)').filter(function (e) { return e.checked; }).length; }
+
+  function textoObligatorio(campo, name, maximo) {
+    var v = val(name);
+    if (!v) return falla(campo, "Este dato es obligatorio.");
+    if (!NOMBRE.test(v)) return falla(campo, "Usa solo letras, números y . , ' & -");
+    if (v.length > maximo) return falla(campo, "Es demasiado largo.");
+  }
+  function comentarios(campo, name) {
+    var v = val(name);
+    if (!v) return;
+    if (!TEXTO.test(v) || !sinEnlaces(v)) falla(campo, "Usa solo texto simple, sin enlaces ni símbolos especiales.");
+  }
+  function correo(campo, checkName, queQuiere) {
+    var v = val("email");
+    if (v && !EMAIL.test(v)) return falla(campo, "Revisa que el correo esté bien escrito.");
+    if (!v && marcado(checkName)) falla(campo, "Para recibir " + queQuiere + " necesitamos tu correo.");
+  }
+
+  $("#f").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    errores = 0;
+    $$(".campo-malo").forEach(function (f) { f.classList.remove("campo-malo"); });
+    $$(".error").forEach(function (e) { e.textContent = ""; });
+
+    if (tipo === "d") {
+      if (!marcado("evento")) falla("evento", "Elige el tipo de evento.");
+      // La fecha debe seguir siendo válida hoy (por si la página quedó abierta varios días)
+      var fv = val("fecha"), h = hoySantiago();
+      var validas = fechasDisponibles(h.y, h.m, h.d).map(function (x) { return x.valor; });
+      var esDomingo = /^\d{4}-\d{2}-\d{2}$/.test(fv) && new Date(fv + "T12:00:00Z").getUTCDay() === 0;
+      if (!fv) falla("fecha", "Elige una fecha, «Por confirmar» o «Fecha no definida».");
+      else if (esDomingo) falla("fecha", "No entregamos los domingos. Elige otra fecha de la lista.");
+      else if (fv !== "Por confirmar" && fv !== "Fecha no definida" && validas.indexOf(fv) === -1)
+        falla("fecha", "Esa fecha ya no está disponible. Elige otra de la lista (mínimo 2 días hábiles de anticipación).");
+      if (!marcado("personas")) falla("personas", "Elige cuántas personas serán.");
+      else if ($$("input[name=personas]:checked")[0].value === "Más") {
+        var n = parseInt($("#personas_mas").value, 10);
+        if (!(n >= 36 && n <= 2000)) falla("personas", "Indica un número de personas (36 o más).");
+      }
+      // sabores: opcional
+      textoObligatorio("nombre_d", "nombre", 80);
+      if (!telefonoValido(val("telefono"))) falla("telefono_d", "Ingresa un teléfono chileno válido, por ejemplo +56 9 1234 5678.");
+      correo("email_d", "quiere_guia", "la guía");
+      if (!val("entrega")) falla("entrega_d", "Elige cómo quieres recibir tu pedido.");
+      comentarios("comentarios_d", "comentarios");
+    } else {
+      textoObligatorio("nombre_m", "nombre", 80);
+      textoObligatorio("negocio", "negocio", 100);
+      if (val("rut") && !rutValido(val("rut"))) falla("rut", "Revisa el RUT, por ejemplo 12.345.678-5.");
+      if (!telefonoValido(val("telefono"))) falla("telefono_m", "Ingresa un teléfono chileno válido, por ejemplo +56 9 1234 5678.");
+      textoObligatorio("direccion", "direccion", 120);
+      if (!val("comuna")) falla("comuna_m", "Elige tu comuna.");
+      correo("email_m", "quiere_folletos", "los folletos");
+      // locales, tipo de negocio, porciones y productos: opcionales
+      comentarios("comentarios_m", "comentarios");
+    }
+    if (!$("#acepto").checked) falla("acepto", "Necesitamos tu aceptación para poder responderte.");
+
+    if (errores) {
+      mensaje("Revisa los campos marcados en rojo.");
+      var primero = $(".campo-malo"); if (primero) primero.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    enviar();
+  });
+
+/*@@ENVIO@@*/
+
+  mostrar(tipo);
+})();
+</script>
+</body>
+</html>
