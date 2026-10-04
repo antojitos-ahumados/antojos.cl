@@ -51,7 +51,7 @@
       if (o.personas === "Más") o.personas_mas = val("personas_mas");
       o.sabores = multiples("sabores"); o.entrega = val("entrega"); o.quiere_guia = $("#quiere_guia").checked;
     } else {
-      o.negocio = val("negocio"); o.rut = val("rut"); o.direccion = val("direccion"); o.comuna = val("comuna");
+      o.negocio = val("negocio"); o.rut = normalizarRut(val("rut")) || val("rut"); o.direccion = val("direccion"); o.comuna = val("comuna");
       o.locales = radio("locales"); o.giro = multiples("giro"); o.rebanadas = val("rebanadas");
       o.productos = multiples("productos"); o.quiere_folletos = $("#quiere_folletos").checked;
     }

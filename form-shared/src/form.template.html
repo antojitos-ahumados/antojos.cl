@@ -222,7 +222,7 @@
 
       <fieldset data-campo="rut">
         <label class="t" for="rut">RUT de empresa <span class="op">(opcional)</span></label>
-        <input type="text" id="rut" name="rut" maxlength="12" placeholder="12.345.678-5" inputmode="text">
+        <input type="text" id="rut" name="rut" maxlength="20" placeholder="12.345.678-5" inputmode="text" autocomplete="off">
         <p class="error"></p>
       </fieldset>
 
@@ -428,6 +428,8 @@ var TS_SITEKEY = "@@SITEKEY@@";
     errores++;
   }
   var errores = 0;
+  // RUT: al salir del campo se ordena solo (12.345.678-5); si no es válido se deja como está y se avisa al enviar
+  $("#rut").addEventListener("blur", function () { var f = normalizarRut(this.value); if (f) this.value = f; });
   function val(name) { var e = $('[name="' + name + '"]:not(:disabled)'); return e ? e.value.trim() : ""; }
   function marcado(name) { return $$('[name="' + name + '"]:not(:disabled)').filter(function (e) { return e.checked; }).length; }
 
